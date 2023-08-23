@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 import { GetStaticProps } from 'next'
+import { formatUnits, parseUnits } from 'ethers'
 
 const Home:NextPage = (props:any)=> {
   console.log('props==',props);
@@ -42,6 +43,8 @@ const Home:NextPage = (props:any)=> {
     // router.reload()
   }
   const abc = BigInt(1234)
+  const a = parseUnits('1').toString()
+  const b = formatUnits(100*10**18)
   return (
     <Layout>
       <div>
@@ -50,6 +53,8 @@ const Home:NextPage = (props:any)=> {
         <span>自定义字体</span>
         <span>{props.abc}</span>
         <span>abc:{abc.toString()}</span>
+        <span>a={a}</span>
+        <span>b={b}</span>
         </div>
     </Layout>
   )
