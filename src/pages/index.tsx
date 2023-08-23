@@ -11,6 +11,48 @@ import { GetServerSideProps } from 'next'
 import { GetStaticProps } from 'next'
 import { formatUnits, parseUnits } from 'ethers'
 
+
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  base,
+  zora,
+} from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
+
+
+const { chains, publicClient } = configureChains(
+  [mainnet, polygon, optimism, arbitrum, base, zora],
+  [
+    alchemyProvider({ apiKey: '' }),
+    publicProvider()
+  ]
+);
+
+const { connectors } = getDefaultWallets({
+  appName: 'My RainbowKit App',
+  projectId: 'YOUR_PROJECT_ID',
+  chains
+});
+
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient
+})
+
+
 const Home:NextPage = (props:any)=> {
   console.log('props==',props);
   
@@ -46,17 +88,25 @@ const Home:NextPage = (props:any)=> {
   const a = parseUnits('1').toString()
   const b = formatUnits(parseUnits('1'))
   return (
-    <Layout>
-      <div>
-        <span>Welcome to <a href="https://nextjs.org">Next.js!</a></span>
-        <button onClick={onJumpToAbout}>跳转到Home页面</button>
-        <span>自定义字体</span>
-        <span>{props.abc}</span>
-        <span>abc:{abc.toString()}</span>
-        <span>a={a}</span>
-        <span>b={b}</span>
-        </div>
-    </Layout>
+    <WagmiConfig config={wagmiConfig}>
+      <RainbowKitProvider chains={chains}>
+        <Layout>
+          <div style={{
+            flexDirection:'column',
+            display:'flex'
+          }}>
+            <span>Welcome to <a href="https://nextjs.org">Next.js!</a></span>
+            <button onClick={onJumpToAbout}>跳转到Home页面</button>
+            <span>自定义字体</span>
+            <span>{props.abc}</span>
+            <span>abc:{abc.toString()}</span>
+            <span>a={a}</span>
+            <span>b={b}</span>
+            <ConnectButton />
+            </div>
+        </Layout>
+      </RainbowKitProvider>
+    </WagmiConfig>
   )
 }
 
