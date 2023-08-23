@@ -41,6 +41,7 @@ const Home:NextPage = (props:any)=> {
     // router.back()
     // router.reload()
   }
+  const abc = BigInt(1234)
   return (
     <Layout>
       <div>
@@ -48,6 +49,7 @@ const Home:NextPage = (props:any)=> {
         <button onClick={onJumpToAbout}>跳转到Home页面</button>
         <span>自定义字体</span>
         <span>{props.abc}</span>
+        <span>abc:{abc.toString()}</span>
         </div>
     </Layout>
   )
