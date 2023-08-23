@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     domains: ['gimg2.baidu.com'],
   },
-  distDir: 'build',
+  // distDir: 'build',
 }
 
 module.exports = nextConfig
