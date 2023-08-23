@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@sentry/nextjs": "^7.63.0",
     "@types/styled-components": "^5.1.26",
     "antd": "^4.22.7",
     "babel-plugin-import": "^1.13.5",
+    "ethers": "^6.7.1",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
