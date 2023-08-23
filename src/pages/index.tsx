@@ -44,7 +44,7 @@ const Home:NextPage = (props:any)=> {
   }
   const abc = BigInt(1234)
   const a = parseUnits('1').toString()
-  const b = formatUnits(100*10**18)
+  const b = formatUnits(parseUnits('1'))
   return (
     <Layout>
       <div>
